@@ -1,4 +1,4 @@
-export default function Feedback() {
+export default function Description() {
   return (
     <>
       <h1>Sip Happens Café</h1>

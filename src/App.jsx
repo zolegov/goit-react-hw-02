@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-import Feedback from "./components/Description/Description";
+import Description from "./components/Description/Description";
 import Options from "./components/Options/Options";
 import Notification from "./components/Notification/Notification";
+import Feedback from "./components/Feedback/Feedback";
 
 function App() {
   const [feedback, setFeedback] = useState(() => {
@@ -18,6 +19,7 @@ function App() {
   useEffect(() => {
     window.localStorage.setItem("savedClicks", JSON.stringify(feedback));
   }, [feedback]);
+
   const updateFeedback = (feedbackType) => {
     setFeedback((prevFeedback) => ({
       ...prevFeedback,
@@ -32,7 +34,7 @@ function App() {
 
   return (
     <>
-      <Feedback />
+      <Description />
       <Options
         updateFeedback={updateFeedback}
         reset={reset}
@@ -40,13 +42,11 @@ function App() {
       />
 
       {totalFeedback > 0 ? (
-        <div>
-          <p>Good: {feedback.good}</p>
-          <p>Neutral: {feedback.neutral}</p>
-          <p>Bad: {feedback.bad}</p>
-          <p>Total: {totalFeedback}</p>
-          <p>Positive: {positiveFeedback}%</p>
-        </div>
+        <Feedback
+          feedback={feedback}
+          totalFeedback={totalFeedback}
+          positiveFeedback={positiveFeedback}
+        />
       ) : (
         <Notification />
       )}
